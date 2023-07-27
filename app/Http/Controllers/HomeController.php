@@ -19,7 +19,8 @@ class HomeController extends Controller
                 'category'
             ]
         );
-        return view('client.home', compact(['products', 'categories']));
+        $bestsellers = Product::orderBy('id', 'desc')->paginate(5);
+        return view('client.home', compact(['products', 'categories', 'bestsellers']));
     }
     public function redirect(){
        $role_id = Auth::user()->role_id;

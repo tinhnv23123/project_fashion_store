@@ -631,10 +631,10 @@
                             </div>
                         </div>
                         <div class="pagination__area bg__gray--color">
-                                <nav class="pagination justify-content-center">
-                                {{$products->onEachSide(1)->links("pagination::bootstrap-4")}}
-                                </nav>
+                            <div class="pagination justify-content-center">
+                                {{$products->onEachSide(1)->links()}}
                             </div>
+                        </div>
                     </div>
                 </div>
 
