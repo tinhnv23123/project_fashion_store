@@ -10,6 +10,7 @@
     <table class="table">
         <thead>
             <tr>
+                <td></td>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Category</th>
@@ -24,12 +25,13 @@
             foreach ($products as $product) {
             ?>
                 <tr>
+                    <td> <input type="checkbox" name="selectedIds[]" value="{{ $product->id }}"></td>
                     <td scope="row">{{$product->id}}</td>
                     <td>{{$product->product_name}}</td>
                     <td scope="row">{{$product->category->category_name}}</td>
                     <td scope="row">{{$product->brand->brand_name}}</td>
-                    <td><img src="{{asset('storage/image/'.$product->image)}}" alt="" height="50px" width="50px"></td>
-                    <td>{{number_format($product->price, '0', ',', '.')}}</td>
+                    <td scope="row"><img src="{{asset('storage/image/'.$product->image)}}" alt="" height="50px" width="50px"></td>
+                    <td scope="row">{{number_format($product->price, '0', ',', '.')}}</td>
                     <td class="row">
                         <form action="{{ route('product.destroy',$product->id) }}" method="Post" id="deleteForm-{{$formId = $product->id}}">
                             <a class="btn btn-link col" href="{{ route('product.edit',$product->id) }}"><i class="bi bi-pencil-square">Edit</i></a>
@@ -41,8 +43,13 @@
                     </td>
                 </tr>
             <?php } ?>
+            <tr>
+                <td> <input type="checkbox" id="select-all-checkbox" name="selectedIds[]" value="{{ $product->id }}"></td>
+                <td colspan="2"> <button type="button" class="btn btn-danger btn-delete-multiple" data-route="{{ route('product.deleteMultiple') }}">Delete Selected</button></td>
+            </tr>
         </tbody>
     </table>
+
     {{ $products->onEachSide(1)->links("pagination::bootstrap-4") }}
 </div>
 

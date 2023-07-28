@@ -58,6 +58,10 @@
             @enderror
         </div>
         <div class="mb-3">
+            <label class="form-label">Discount</label>
+            <input type="text" class="form-control" name="discount_price" >
+        </div>
+        <div class="mb-3">
             <label class="form-label">Description</label>
             <textarea name="description" class="form-control" cols="30" rows="5">
             </textarea>

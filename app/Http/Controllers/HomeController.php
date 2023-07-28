@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -13,14 +15,15 @@ class HomeController extends Controller
     public function index(){
         $products = Product::orderBy('id', 'desc')->paginate(10);
         $categories = Category::all();
+        $carts = Cart::all();
         $products ->load(
             [
                 'brand',
-                'category'
+                'category',
             ]
         );
         $bestsellers = Product::orderBy('id', 'desc')->paginate(5);
-        return view('client.home', compact(['products', 'categories', 'bestsellers']));
+        return view('client.home', compact(['products', 'categories', 'bestsellers', 'carts']));
     }
     public function redirect(){
        $role_id = Auth::user()->role_id;
@@ -34,12 +37,15 @@ class HomeController extends Controller
     public function products(){
         $products = Product::orderBy('created_at', 'desc')->paginate(12);
         $categories = Category::all();
+        $brands = Brand::all();
+        $carts = Cart::all();
         $products ->load(
             [
                 'brand',
                 'category'
             ]
         );
-        return view('client.products', compact(['products', 'categories']));
+        return view('client.products', compact(['products', 'categories','brands','carts']));
     }
+
 }

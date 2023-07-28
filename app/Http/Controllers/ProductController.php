@@ -32,7 +32,7 @@ class ProductController extends Controller
                 'products' => $products,
             ]);
         } else {
-        return redirect("/");
+            return redirect("/");
         }
     }
 
@@ -52,7 +52,7 @@ class ProductController extends Controller
                 'brands' => $brands
             ]);
         } else {
-        return redirect("/");
+            return redirect("/");
         }
     }
 
@@ -69,6 +69,7 @@ class ProductController extends Controller
             $product_name = $request->input('product_name');
             $description = $request->input('description');
             $category_id = $request->input('category_id', 1);
+            $discount_price = $request->input('discount_price');
 
             // Kiểm tra xem id danh mục tồn tại trong cơ sở dữ liệu
             $category = Category::find($category_id);
@@ -97,13 +98,14 @@ class ProductController extends Controller
                 'category_id' => $category_id,
                 'brand_id' => $brand_id,
                 'price' => $price,
+                'discount_price' =>$discount_price,
                 'image' => $image,
             ];
             Product::create($data);
             Alert::success('Add successfully');
             return redirect()->route('product.index')->with('success', "Product has been create successfully");
         } else {
-        return redirect("/");
+            return redirect("/");
         }
     }
 
@@ -135,7 +137,7 @@ class ProductController extends Controller
                 'brands' => $brands
             ], compact('product'));
         } else {
-        return redirect("/");
+            return redirect("/");
         }
     }
 
@@ -155,12 +157,14 @@ class ProductController extends Controller
             $category_id = $request->input('category_id');
             $brand_id = $request->input('brand_id');
             $price = $request->input('price');
+            $discount_price = $request->input('discount_price');
             $product->fill([
                 'product_name' => $product_name,
                 'description' => $description,
                 'category_id' => $category_id,
                 'brand_id' => $brand_id,
                 'price' => $price,
+                'discount_price' => $discount_price
             ])->save();
             if ($request->file('image') !== null) {
                 $image = $request->file('image')->getClientOriginalName();
@@ -172,7 +176,7 @@ class ProductController extends Controller
             Alert::success('Update successfully');
             return redirect()->route('product.index')->with('success', "Product update successfully");
         } else {
-        return redirect("/");
+            return redirect("/");
         }
     }
 
@@ -190,7 +194,29 @@ class ProductController extends Controller
             Alert::success('Delete successfully');
             return redirect()->route('product.index');
         } else {
-        return redirect("/");
+            return redirect("/");
+        }
+    }
+
+    public function deleteMultiple(Request $request)
+    {
+
+        $role_id = Auth::user()->role_id;
+        if ($role_id == 0 || $role_id == 2) {
+            $selectedIds = $request->input('selectedIds', []);
+
+            if (!empty($selectedIds)) {
+                // Thực hiện xóa hoặc cập nhật trạng thái xóa cho các sản phẩm đã chọn
+                // Đoạn code sau đây dùng để xóa vĩnh viễn các sản phẩm, nếu bạn muốn cập nhật trạng thái xóa, hãy sử dụng phương thức update thay vì delete.
+                Product::whereIn('id', $selectedIds)->delete();
+                Alert::success('Delete successfully');
+                return redirect()->route('product.index');
+            } else {
+                Alert::error('Delete Failed');
+                return redirect()->route('product.index');
+            }
+        } else {
+            return redirect("/");
         }
     }
 }

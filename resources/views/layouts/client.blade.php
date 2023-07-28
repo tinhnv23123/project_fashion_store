@@ -11,6 +11,7 @@
     <meta name="description" content="Morden Bootstrap HTML5 Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- ======= All CSS Plugins here ======== -->
     <link rel="stylesheet" href="css/plugins/swiper-bundle.min.css">
@@ -22,6 +23,7 @@
 
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -193,11 +195,11 @@
                             @else
                             <li class="header__menu--items header__account--items header__account2--items ">
                                 <a href="/" class="text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443" viewBox="0 0 512 512">
-                                    <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                    <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                </svg>
-                                <span class="header__account--btn__text">My Account</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443" viewBox="0 0 512 512">
+                                        <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                        <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                    </svg>
+                                    <span class="header__account--btn__text">My Account</span>
                                 </a>
                                 <ul class="header__sub--menu">
                                     <li class="header__sub--menu__items"><a href="{{route('login')}}" class="header__sub--menu__link">Login</a></li>
@@ -227,7 +229,7 @@
                                         </g>
                                     </svg>
                                     <span class="header__account--btn__text"> My cart</span>
-                                    <span class="items__count">02</span>
+                                    <span class="items__count" id="cart-badge">02</span>
                                 </a>
                             </li>
                         </ul>
@@ -244,7 +246,7 @@
                                     </a>
                                 </li>
                                 <li class="header__menu--items style2 d-none d-xl-block">
-                                <a class="header__menu--link" href="">Category
+                                    <a class="header__menu--link" href="">Category
                                         <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
                                             <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
                                         </svg>
@@ -259,16 +261,14 @@
                                     <a class="header__menu--link" href="about.html">About US </a>
                                 </li>
                                 <li class="header__menu--items style2">
-                                    <a class="header__menu--link" href="blog.html">Blog
+                                    <a class="header__menu--link">Page
                                         <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
                                             <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
                                         </svg>
                                     </a>
                                     <ul class="header__sub--menu">
-                                        <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog Grid</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-details.html" class="header__sub--menu__link">Blog Details</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-left-sidebar.html" class="header__sub--menu__link">Blog Left Sidebar</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-right-sidebar.html" class="header__sub--menu__link">Blog Right Sidebar</a></li>
+                                        <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog</a></li>
+                                        <li class="header__sub--menu__items"><a href="/viewcart" class="header__sub--menu__link">Cart</a></li>
                                     </ul>
                                 </li>
                                 <li class="header__menu--items style2">
@@ -393,16 +393,14 @@
                                     <a class="header__menu--link" href="about.html">About US </a>
                                 </li>
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link" href="blog.html">Blog
+                                    <a class="header__menu--link">Page
                                         <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
                                             <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
                                         </svg>
                                     </a>
                                     <ul class="header__sub--menu">
-                                        <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog Grid</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-details.html" class="header__sub--menu__link">Blog Details</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-left-sidebar.html" class="header__sub--menu__link">Blog Left Sidebar</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-right-sidebar.html" class="header__sub--menu__link">Blog Right Sidebar</a></li>
+                                        <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog</a></li>
+                                        <li class="header__sub--menu__items"><a href="/viewcart" class="header__sub--menu__link">Cart</a></li>
                                     </ul>
                                 </li>
 
@@ -429,38 +427,36 @@
                 <nav class="offcanvas__menu">
                     <ul class="offcanvas__menu_ul">
                         <li class="offcanvas__menu_li">
-                        <a class="header__menu--link" href="/">Home
+                            <a class="header__menu--link" href="/">Home
                         </li>
                         <li class="offcanvas__menu_li">
-                        <a class="header__menu--link" href="/products">Shop
-                                    </a>
+                            <a class="header__menu--link" href="/products">Shop
+                            </a>
                         </li>
                         <li class="offcanvas__menu_li">
-                        <a class="header__menu--link" href="">Category
-                                        <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
-                                            <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                        </svg>
-                                    </a>
-                                    <ul class="header__sub--menu">
-                                        @foreach($categories as $category)
-                                        <li class="header__sub--menu__items"><a href="{{$category->category_name}}" class="header__sub--menu__link">{{$category->category_name}}</a></li>
-                                        @endforeach
-                                    </ul>
+                            <a class="header__menu--link" href="">Category
+                                <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
+                                    <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
+                                </svg>
+                            </a>
+                            <ul class="header__sub--menu">
+                                @foreach($categories as $category)
+                                <li class="header__sub--menu__items"><a href="{{$category->category_name}}" class="header__sub--menu__link">{{$category->category_name}}</a></li>
+                                @endforeach
+                            </ul>
                         </li>
                         <li class="offcanvas__menu_li">
-                        <a class="header__menu--link" href="about.html">About US </a>
+                            <a class="header__menu--link" href="about.html">About US </a>
                         </li>
-                        <a class="header__menu--link" href="blog.html">Blog
-                                        <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
-                                            <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                        </svg>
-                                    </a>
-                                    <ul class="header__sub--menu">
-                                        <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog Grid</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-details.html" class="header__sub--menu__link">Blog Details</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-left-sidebar.html" class="header__sub--menu__link">Blog Left Sidebar</a></li>
-                                        <li class="header__sub--menu__items"><a href="blog-right-sidebar.html" class="header__sub--menu__link">Blog Right Sidebar</a></li>
-                                    </ul>
+                        <a class="header__menu--link">Page
+                            <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
+                                <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
+                            </svg>
+                        </a>
+                        <ul class="header__sub--menu">
+                            <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog Grid</a></li>
+                            <li class="header__sub--menu__items"><a href="/viewcart" class="header__sub--menu__link">Cart</a></li>
+                        </ul>
                         <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="contact.html">Contact</a></li>
                     </ul>
                     <div class="offcanvas__account--items">
@@ -590,61 +586,39 @@
                 <p class="minicart__header--desc">Clothing and fashion products are limited</p>
             </div>
             <div class="minicart__product">
+                <?php $grandtotal = 0; ?>
+                @foreach($carts as $cart)
                 <div class="minicart__product--items d-flex">
+
                     <div class="minicart__thumb">
-                        <a href="product-details.html"><img src="img/product/product1.png" alt="prduct-img"></a>
+                        <a href="product-details.html"><img src="{{asset('storage/image/'.$cart->image)}}" alt="prduct-img"></a>
                     </div>
                     <div class="minicart__text">
-                        <h3 class="minicart__subtitle h4"><a href="product-details.html">Oversize Cotton Dress</a></h3>
-                        <span class="color__variant"><b>Color:</b> Beige</span>
+                        <h3 class="minicart__subtitle h4"><a href="product-details.html">{{$cart->product_name}}</a></h3>
                         <div class="minicart__price">
-                            <span class="current__price">$125.00</span>
-                            <span class="old__price">$140.00</span>
+                            <span class="current__price">{{$cart->total}}</span>
                         </div>
                         <div class="minicart__text--footer d-flex align-items-center">
                             <div class="quantity__box minicart__quantity">
                                 <button type="button" class="quantity__value decrease" aria-label="quantity value" value="Decrease Value">-</button>
                                 <label>
-                                    <input type="number" class="quantity__number" value="1" data-counter />
+                                    <input type="number" class="quantity__number" value="{{$cart->quantity}}" data-counter />
                                 </label>
                                 <button type="button" class="quantity__value increase" value="Increase Value">+</button>
                             </div>
-                            <button class="minicart__product--remove">Remove</button>
+                            <a class="cart__remove--btn" type="button" href="{{url('remove_cart', $cart->id)}}"> Remove</a>
                         </div>
                     </div>
                 </div>
-                <div class="minicart__product--items d-flex">
-                    <div class="minicart__thumb">
-                        <a href="product-details.html"><img src="img/product/product2.png" alt="prduct-img"></a>
-                    </div>
-                    <div class="minicart__text">
-                        <h3 class="minicart__subtitle h4"><a href="product-details.html">Boxy Denim Jacket</a></h3>
-                        <span class="color__variant"><b>Color:</b> Green</span>
-                        <div class="minicart__price">
-                            <span class="current__price">$115.00</span>
-                            <span class="old__price">$130.00</span>
-                        </div>
-                        <div class="minicart__text--footer d-flex align-items-center">
-                            <div class="quantity__box minicart__quantity">
-                                <button type="button" class="quantity__value decrease" aria-label="quantity value" value="Decrease Value">-</button>
-                                <label>
-                                    <input type="number" class="quantity__number" value="1" data-counter />
-                                </label>
-                                <button type="button" class="quantity__value increase" aria-label="quantity value" value="Increase Value">+</button>
-                            </div>
-                            <button class="minicart__product--remove">Remove</button>
-                        </div>
-                    </div>
-                </div>
+                <?php $grandtotal = $grandtotal + $cart->total ?>
+                @endforeach
+
             </div>
             <div class="minicart__amount">
-                <div class="minicart__amount_list d-flex justify-content-between">
-                    <span>Sub Total:</span>
-                    <span><b>$240.00</b></span>
-                </div>
+
                 <div class="minicart__amount_list d-flex justify-content-between">
                     <span>Total:</span>
-                    <span><b>$240.00</b></span>
+                    <span><b>{{number_format($grandtotal, '0', ',', '.')}} VNĐ</b></span>
                 </div>
             </div>
             <div class="minicart__conditions text-center">
@@ -652,7 +626,7 @@
                 <label class="minicart__conditions--label" for="accept">I agree with the <a class="minicart__conditions--link" href="privacy-policy.html">Privacy and Policy</a></label>
             </div>
             <div class="minicart__button d-flex justify-content-center">
-                <a class="primary__btn minicart__button--link" href="cart.html">View cart</a>
+                <a class="primary__btn minicart__button--link" href="/viewcart">View cart</a>
                 <a class="primary__btn minicart__button--link" href="checkout.html">Checkout</a>
             </div>
         </div>
@@ -749,7 +723,7 @@
                         </h2>
                         <ul class="footer__widget--menu footer__widget--inner">
                             <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="my-account.html">My Account</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="cart.html">Shopping Cart</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/cart">Shopping Cart</a></li>
                             <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="login.html">Login</a></li>
                             <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="login.html">Register</a></li>
                             <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="checkout.html">Checkout</a></li>
@@ -1154,7 +1128,7 @@
 
     <!-- Customscript js -->
     <script src="js/script.js"></script>
-
+    <script src="js/cart.js"></script>
 </body>
 
 <!-- Mirrored from risingtheme.com/html/demo-suruchi-v1/suruchi/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jul 2023 07:32:01 GMT -->
