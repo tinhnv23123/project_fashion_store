@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -28,18 +29,25 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    // 
+
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/product', ProductController::class);
+    Route::post('/products/delete', [ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');;
+    Route::resource('/brand', BrandController::class);
+    Route::resource('/user', UserController::class);
+    // cart
+    Route::get('/viewcart', [CartController::class, 'viewcart']);
+    Route::post('/add_to_cart/{id}', [CartController::class, 'add_to_cart']);
+    Route::get('/remove_cart/{id}', [CartController::class, 'remove_cart']);
+    Route::post('/cart/update-or-clear', [CartController::class, 'updateOrClearCart'])->name('cart.updateOrClear');
+
+    //Check out
+    Route::get('/checkout', [CartController::class, 'checkout']);
+    Route::get('/shipping', [CartController::class, 'shipping']);
+    Route::get('/bill', [CartController::class, 'bill']);
 });
+
 Route::get('/redirect', [HomeController::class, 'redirect']);
-Route::resource('/category', CategoryController::class);
-Route::resource('/product', ProductController::class);
-Route::post('/products/delete', [ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');;
-Route::resource('/brand', BrandController::class);
-Route::resource('/user', UserController::class);
-
-
 // View sản phẩm ra trang shop
 Route::get('/products', [HomeController::class, 'products']);
-//  Cart
-Route::get('/viewcart', [CartController::class, 'viewcart']);
-Route::post('/add_to_cart/{id}', [CartController::class, 'add_to_cart']);
-Route::get('/remove_cart/{id}', [CartController::class, 'remove_cart']);

@@ -24,6 +24,7 @@
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -229,7 +230,8 @@
                                         </g>
                                     </svg>
                                     <span class="header__account--btn__text"> My cart</span>
-                                    <span class="items__count" id="cart-badge">02</span>
+                                    
+                                    <span class="items__count" id="cart-badge">{{ $cartCount}}</span>
                                 </a>
                             </li>
                         </ul>
@@ -355,7 +357,7 @@
                                             </g>
                                         </g>
                                     </svg>
-                                    <span class="items__count style2">02</span>
+                                    <span class="items__count style2">{{$cartCount}}</span>
                                 </a>
                             </li>
                         </ul>
@@ -585,6 +587,8 @@
                 </div>
                 <p class="minicart__header--desc">Clothing and fashion products are limited</p>
             </div>
+
+            @if(Auth::id())
             <div class="minicart__product">
                 <?php $grandtotal = 0; ?>
                 @foreach($carts as $cart)
@@ -596,63 +600,51 @@
                     <div class="minicart__text">
                         <h3 class="minicart__subtitle h4"><a href="product-details.html">{{$cart->product_name}}</a></h3>
                         <div class="minicart__price">
-                            <span class="current__price">{{$cart->total}}</span>
+                            <span class="current__price">Price: {{number_format($cart->total, '0', ',', '.')}} VNĐ</span>
+                        </div> 
+                        <div class="minicart__quantity ">
+                            <span class="quantity__number">Qty: {{$cart->quantity}}</span>
+                            <a class="cart__remove--btn text-danger mx-10" type="button" href="{{url('remove_cart', $cart->id)}}"> Remove</a>
                         </div>
-                        <div class="minicart__text--footer d-flex align-items-center">
-                            <div class="quantity__box minicart__quantity">
-                                <button type="button" class="quantity__value decrease" aria-label="quantity value" value="Decrease Value">-</button>
-                                <label>
-                                    <input type="number" class="quantity__number" value="{{$cart->quantity}}" data-counter />
-                                </label>
-                                <button type="button" class="quantity__value increase" value="Increase Value">+</button>
-                            </div>
-                            <a class="cart__remove--btn" type="button" href="{{url('remove_cart', $cart->id)}}"> Remove</a>
-                        </div>
+                        
                     </div>
                 </div>
                 <?php $grandtotal = $grandtotal + $cart->total ?>
                 @endforeach
-
-            </div>
-            <div class="minicart__amount">
-
-                <div class="minicart__amount_list d-flex justify-content-between">
-                    <span>Total:</span>
-                    <span><b>{{number_format($grandtotal, '0', ',', '.')}} VNĐ</b></span>
+                <div class="minicart__conditions text-center">
+                    <input class="minicart__conditions--input" id="accept" type="checkbox">
+                    <label class="minicart__conditions--label" for="accept">I agree with the <a class="minicart__conditions--link" href="privacy-policy.html">Privacy and Policy</a></label>
                 </div>
+                <div class="minicart__button d-flex justify-content-center">
+                    <a class="primary__btn minicart__button--link" href="/viewcart">View cart</a>
+                    <a class="primary__btn minicart__button--link" href="/checkout">Checkout</a>
+                </div>
+                @endif
             </div>
-            <div class="minicart__conditions text-center">
-                <input class="minicart__conditions--input" id="accept" type="checkbox">
-                <label class="minicart__conditions--label" for="accept">I agree with the <a class="minicart__conditions--link" href="privacy-policy.html">Privacy and Policy</a></label>
-            </div>
-            <div class="minicart__button d-flex justify-content-center">
-                <a class="primary__btn minicart__button--link" href="/viewcart">View cart</a>
-                <a class="primary__btn minicart__button--link" href="checkout.html">Checkout</a>
-            </div>
-        </div>
-        <!-- End offCanvas minicart -->
 
-        <!-- Start serch box area -->
-        <div class="predictive__search--box ">
-            <div class="predictive__search--box__inner">
-                <h2 class="predictive__search--title">Search Products</h2>
-                <form class="predictive__search--form" action="#">
-                    <label>
-                        <input class="predictive__search--input" placeholder="Search Here" type="text">
-                    </label>
-                    <button class="predictive__search--button" aria-label="search button" type="submit"><svg class="header__search--button__svg" xmlns="http://www.w3.org/2000/svg" width="30.51" height="25.443" viewBox="0 0 512 512">
-                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
-                        </svg> </button>
-                </form>
+            <!-- End offCanvas minicart -->
+
+            <!-- Start serch box area -->
+            <div class="predictive__search--box ">
+                <div class="predictive__search--box__inner">
+                    <h2 class="predictive__search--title">Search Products</h2>
+                    <form class="predictive__search--form" action="#">
+                        <label>
+                            <input class="predictive__search--input" placeholder="Search Here" type="text">
+                        </label>
+                        <button class="predictive__search--button" aria-label="search button" type="submit"><svg class="header__search--button__svg" xmlns="http://www.w3.org/2000/svg" width="30.51" height="25.443" viewBox="0 0 512 512">
+                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
+                            </svg> </button>
+                    </form>
+                </div>
+                <button class="predictive__search--close__btn" aria-label="search close button" data-offcanvas>
+                    <svg class="predictive__search--close__icon" xmlns="http://www.w3.org/2000/svg" width="40.51" height="30.443" viewBox="0 0 512 512">
+                        <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                    </svg>
+                </button>
             </div>
-            <button class="predictive__search--close__btn" aria-label="search close button" data-offcanvas>
-                <svg class="predictive__search--close__icon" xmlns="http://www.w3.org/2000/svg" width="40.51" height="30.443" viewBox="0 0 512 512">
-                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
-                </svg>
-            </button>
-        </div>
-        <!-- End serch box area -->
+            <!-- End serch box area -->
 
     </header>
     <!-- End header area -->
@@ -722,10 +714,10 @@
                             </button>
                         </h2>
                         <ul class="footer__widget--menu footer__widget--inner">
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="my-account.html">My Account</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/cart">Shopping Cart</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="login.html">Login</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="login.html">Register</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/user/profile">My Account</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/viewcart">Shopping Cart</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/login">Login</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/register">Register</a></li>
                             <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="checkout.html">Checkout</a></li>
                             <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="wishlist.html">Wishlist</a></li>
                         </ul>
@@ -803,7 +795,8 @@
                 </div>
             </div>
             <div class="footer__bottom d-flex justify-content-between align-items-center">
-                <p class="copyright__content text-ofwhite m-0">Copyright © 2022 <a class="copyright__content--link" href="index.html">Suruchi</a> . All Rights Reserved.Design By Suruchi</p>
+                <p class="copyright__content text-ofwhite m-0">Theme cre: Suruchi Themeforest</p>
+                <p class="copyright__content text-ofwhite m-0">Desgin by: Nguyễn Văn Tĩnh <a class="copyright__content--link" href="/">  Fashion</a> .</p>
                 <div class="footer__payment text-right">
                     <img class="display-block" src="img/other/payment-visa-card.png" alt="visa-card">
                 </div>
@@ -1128,7 +1121,12 @@
 
     <!-- Customscript js -->
     <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/cart.js"></script>
+    <!-- ... -->
+
+    <!-- ... -->
+
 </body>
 
 <!-- Mirrored from risingtheme.com/html/demo-suruchi-v1/suruchi/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jul 2023 07:32:01 GMT -->

@@ -12,40 +12,56 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::orderBy('id', 'desc')->paginate(10);
         $categories = Category::all();
-        $carts = Cart::all();
-        $products ->load(
+        if (Auth::id()) {
+            $id = Auth::user()->id;
+            $carts = Cart::where('user_id', '=', $id)->get();
+            $users = User::all();
+        } else {
+            $carts = [];
+            $users = [];
+        }
+        $products->load(
             [
                 'brand',
                 'category',
             ]
         );
         $bestsellers = Product::orderBy('id', 'desc')->paginate(5);
-        return view('client.home', compact(['products', 'categories', 'bestsellers', 'carts']));
+        return view('client.home', compact(['products', 'categories', 'bestsellers', 'carts', 'users']));
     }
-    public function redirect(){
-       $role_id = Auth::user()->role_id;
-       if($role_id == 0 || $role_id == 2){
-        return view('admin.dashboard');
-       }else{ 
-        return redirect("/");
-       }
+    public function redirect()
+    {
+        $role_id = Auth::user()->role_id;
+        if ($role_id == 0 || $role_id == 2) {
+            return view('admin.dashboard');
+        } else {
+            return redirect("/");
+        }
     }
 
-    public function products(){
+    public function products()
+    {
         $products = Product::orderBy('created_at', 'desc')->paginate(12);
         $categories = Category::all();
         $brands = Brand::all();
-        $carts = Cart::all();
-        $products ->load(
+        if (Auth::id()) {
+            $id = Auth::user()->id;
+            $carts = Cart::where('user_id', '=', $id)->get();
+            $users = User::all();
+        } else {
+            $carts = [];
+            $users = [];
+        }
+        $products->load(
             [
                 'brand',
                 'category'
             ]
         );
-        return view('client.products', compact(['products', 'categories','brands','carts']));
+        return view('client.products', compact(['products', 'categories', 'brands', 'carts']));
     }
-
 }
