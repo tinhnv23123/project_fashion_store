@@ -87,7 +87,7 @@
                         <a href="/user" class="nav-link"><i class="fa fa-user me-2"></i>User</a>
                     </div>
                     <div class="nav-item ">
-                        <a href="#" class="nav-link "><i class="fa fa-receipt me-2"></i>Orders</a>
+                        <a href="/orders" class="nav-link "><i class="fa fa-receipt me-2"></i>Orders</a>
                     </div>
                 </div>
 

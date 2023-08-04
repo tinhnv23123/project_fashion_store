@@ -19,6 +19,13 @@
 <!--  -->
 <section class="cart__section section--padding">
     <div class="container-fluid">
+        <div class="row">
+            @if (session('message'))
+            <div class="alert alert-warning">
+                {{ session('message') }}
+            </div>
+            @endif
+        </div>
         <div class="cart__section--inner">
             <div class="row">
                 <form id="main-form" method="post" action="{{ route('cart.updateOrClear') }}">

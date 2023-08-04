@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,11 +32,16 @@ Route::middleware([
     })->name('dashboard');
     // 
 
+    // Admin
     Route::resource('/category', CategoryController::class);
     Route::resource('/product', ProductController::class);
-    Route::post('/products/delete', [ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');;
+    Route::post('/products/delete', [ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');
     Route::resource('/brand', BrandController::class);
     Route::resource('/user', UserController::class);
+    Route::get('/orders',[OrderController:: class, 'index'] );
+    Route::get('/orders/{orderId}', [OrderController::class, 'orderDetail'])->name('admin.orderdetail');
+
+    //Client
     // cart
     Route::get('/viewcart', [CartController::class, 'viewcart']);
     Route::post('/add_to_cart/{id}', [CartController::class, 'add_to_cart']);
@@ -44,10 +50,17 @@ Route::middleware([
 
     //Check out
     Route::get('/checkout', [CartController::class, 'checkout']);
-    Route::get('/shipping', [CartController::class, 'shipping']);
+    Route::get('/shipping', [CartController::class, 'shipping']); 
     Route::get('/bill', [CartController::class, 'bill']);
+    Route::post('/checkout/shipping', [CartController::class, 'checkship'])->name('checkout.shipping');
+    Route::get('/order', [CartController::class, 'order'])->name('order.shipping');
+
+
+    Route::get('/myorder', [CartController::class, 'myorder']);
+    Route::get('/order/{orderId}', [CartController::class, 'viewOrderDetail'])->name('order.detail');
 });
 
 Route::get('/redirect', [HomeController::class, 'redirect']);
 // View sản phẩm ra trang shop
 Route::get('/products', [HomeController::class, 'products']);
+Route::get('/products/{id}', [HomeController::class, 'detail'])->name('product_detail');

@@ -45,12 +45,15 @@
             <div class="main checkout__mian">
                 <h2 class="cart__title mb-40">Check Out</h2>
                 <main class="main__content_wrapper">
-                    <form action="#">
+                    <form action="{{ route('checkout.shipping') }}" method="post">
+                        @csrf
                         <div class="checkout__content--step section__contact--information">
+                            <!-- Trong file checkout.blade.php -->
+                            <!-- ... -->
                             <div class="customer__information">
                                 <div class="checkout__email--phone mb-12">
                                     <label>
-                                        <input class="checkout__input--field border-radius-5" placeholder="Email or mobile phone mumber" type="text">
+                                        <input class="checkout__input--field border-radius-5" placeholder="Email" type="text" name="email" value="{{ $user->email ?? old('email') }}">
                                     </label>
                                 </div>
                                 <div class="checkout__checkbox">
@@ -60,89 +63,52 @@
                                         Email me with news and offers</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="checkout__content--step section__shipping--address">
-                            <div class="section__header mb-25">
-                                <h3 class="section__header--title">Shipping address</h3>
-                            </div>
-                            <div class="section__shipping--address__content">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-12">
-                                        <div class="checkout__input--list ">
+                            <div class="checkout__content--step section__shipping--address">
+                                <div class="section__header mb-25">
+                                    <h3 class="section__header--title">Shipping address</h3>
+                                </div>
+                                <div class="section__shipping--address__content">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-12">
+                                            <div class="checkout__input--list">
                                             <label>
-                                                <input class="checkout__input--field border-radius-5" placeholder="First name (optional)" type="text">
-                                            </label>
+                                                    <input class="checkout__input--field border-radius-5" placeholder="Name" type="text" name="name" value="{{ $user->name ?? old('name') }}">
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5" placeholder="Last name" type="text">
-                                            </label>
+                                        <div class="col-12 mb-12">
+                                            <div class="checkout__input--list">
+                                                <label>
+                                                    <input class="checkout__input--field border-radius-5" placeholder="Address" type="text" name="address" value="{{ $user->address ?? old('address') }}">
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5" placeholder="Company (optional)" type="text">
-                                            </label>
+                                        <div class="col-12 mb-12">
+                                            <div class="checkout__input--list">
+                                                <label>
+                                                    <input class="checkout__input--field border-radius-5" placeholder="Phone number" type="text" name="phone" value="{{ $user->phone ?? old('phone') }}">
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5" placeholder="Address1" type="text">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5" placeholder="Apartment, suite, etc. (optional)" type="text">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5" placeholder="City" type="text">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-12">
-                                        <div class="checkout__input--list checkout__input--select select">
-                                            <label class="checkout__select--label" for="country">Country/region</label>
-                                            <select class="checkout__input--select__field border-radius-5" id="country">
-                                                <option value="1">India</option>
-                                                <option value="2">United States</option>
-                                                <option value="3">Netherlands</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Islands</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Antigua Barbuda</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5" placeholder="Postal code" type="text">
-                                            </label>
+                                        <div class="checkout__checkbox">
+                                            <input class="checkout__checkbox--input" id="check2" type="checkbox">
+                                            <span class="checkout__checkbox--checkmark"></span>
+                                            <label class="checkout__checkbox--label" for="check2">
+                                                Save this information for next time</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="checkout__checkbox">
-                                    <input class="checkout__checkbox--input" id="check2" type="checkbox">
-                                    <span class="checkout__checkbox--checkmark"></span>
-                                    <label class="checkout__checkbox--label" for="check2">
-                                        Save this information for next time</label>
+                                <!-- ... -->
+                                <div class="d-flex">
+                                    <div class="checkout__content--step__footer d-flex align-items-center mt-5">
+                                        <button type="submit" class="continue__shipping--btn primary__btn border-radius-5">Continue To Shipping
+                                    </div>
+
+                                    <div class="checkout__content--step__footer d-flex align-items-center mt-5">
+                                        <a class="previous__link--content" href="/viewcart">Return to cart</a>
+                                    </div>
+
                                 </div>
-                            </div>
-                        </div>
-                        <div class="checkout__content--step__footer d-flex align-items-center">
-                            <a class="continue__shipping--btn primary__btn border-radius-5" href="/bill">Continue To Shipping</a>
-                            <a class="previous__link--content" href="/viewcart">Return to cart</a>
-                        </div>
                     </form>
                 </main>
                 <footer class="main__footer checkout__footer">

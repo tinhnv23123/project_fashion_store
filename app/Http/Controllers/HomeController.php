@@ -64,4 +64,34 @@ class HomeController extends Controller
         );
         return view('client.products', compact(['products', 'categories', 'brands', 'carts']));
     }
+    public function detail(Request $request, Product $product, $id)
+    { {
+            // Lấy thông tin sản phẩm từ CSDL bằng ID
+            $product = Product::find($id);
+            $categories = Category::all();
+            $brands = Brand::all();
+            $products = Product::orderBy('id', 'desc')->paginate(6);
+            // Kiểm tra nếu sản phẩm không tồn tại
+            if (!$product) {
+                abort(404);
+            }
+            if (Auth::id()) {
+                $id = Auth::user()->id;
+                $carts = Cart::where('user_id', '=', $id)->get();
+                $users = User::all();
+            } else {
+                $carts = [];
+                $users = [];
+            }
+            $product->load(
+                [
+                    'brand',
+                    'category',
+                ]
+            );
+            // dd($products);
+            // Trả về view hiển thị chi tiết sản phẩm và truyền dữ liệu của sản phẩm đó
+            return view('client.product_detail', compact('product', 'categories', 'brands', 'carts', 'products'));
+        }
+    }
 }

@@ -23,7 +23,6 @@
 
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
@@ -230,7 +229,7 @@
                                         </g>
                                     </svg>
                                     <span class="header__account--btn__text"> My cart</span>
-                                    
+
                                     <span class="items__count" id="cart-badge">{{ $cartCount}}</span>
                                 </a>
                             </li>
@@ -271,6 +270,7 @@
                                     <ul class="header__sub--menu">
                                         <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog</a></li>
                                         <li class="header__sub--menu__items"><a href="/viewcart" class="header__sub--menu__link">Cart</a></li>
+                                        <li class="header__sub--menu__items"><a href="/myorder" class="header__sub--menu__link">My Order</a></li>
                                     </ul>
                                 </li>
                                 <li class="header__menu--items style2">
@@ -403,6 +403,7 @@
                                     <ul class="header__sub--menu">
                                         <li class="header__sub--menu__items"><a href="blog.html" class="header__sub--menu__link">Blog</a></li>
                                         <li class="header__sub--menu__items"><a href="/viewcart" class="header__sub--menu__link">Cart</a></li>
+                                        <li class="header__sub--menu__items"><a href="/myorder" class="header__sub--menu__link">My Order</a></li>
                                     </ul>
                                 </li>
 
@@ -601,12 +602,12 @@
                         <h3 class="minicart__subtitle h4"><a href="product-details.html">{{$cart->product_name}}</a></h3>
                         <div class="minicart__price">
                             <span class="current__price">Price: {{number_format($cart->total, '0', ',', '.')}} VNĐ</span>
-                        </div> 
+                        </div>
                         <div class="minicart__quantity ">
                             <span class="quantity__number">Qty: {{$cart->quantity}}</span>
                             <a class="cart__remove--btn text-danger mx-10" type="button" href="{{url('remove_cart', $cart->id)}}"> Remove</a>
                         </div>
-                        
+
                     </div>
                 </div>
                 <?php $grandtotal = $grandtotal + $cart->total ?>
@@ -796,7 +797,7 @@
             </div>
             <div class="footer__bottom d-flex justify-content-between align-items-center">
                 <p class="copyright__content text-ofwhite m-0">Theme cre: Suruchi Themeforest</p>
-                <p class="copyright__content text-ofwhite m-0">Desgin by: Nguyễn Văn Tĩnh <a class="copyright__content--link" href="/">  Fashion</a> .</p>
+                <p class="copyright__content text-ofwhite m-0">Desgin by: Nguyễn Văn Tĩnh <a class="copyright__content--link" href="/"> Fashion</a> .</p>
                 <div class="footer__payment text-right">
                     <img class="display-block" src="img/other/payment-visa-card.png" alt="visa-card">
                 </div>
@@ -819,7 +820,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="product__media--preview__items">
-                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="img/product/big-product1.jpg"><img class="product__media--preview__items--img" src="img/product/big-product1.jpg" alt="product-media-img"></a>
+                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href=""><img class="product__media--preview__items--img" src="" alt="product-media-img"></a>
                                             <div class="product__media--view__icon">
                                                 <a class="product__media--view__icon--link glightbox" href="img/product/big-product1.jpg" data-gallery="product-media-preview">
                                                     <svg class="product__media--view__icon--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">

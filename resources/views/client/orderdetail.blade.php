@@ -6,30 +6,18 @@
             <div class="row row-cols-1">
                 <div class="col">
                     <div class="breadcrumb__content text-center">
-                        <h2 class="cart__title mb-40">Bill</h2>
+                        <h2 class="cart__title mb-40">Order Detail</h2>
                         <ul class="breadcrumb__content--menu d-flex justify-content-center">
                             <nav>
                                 <ol class="breadcrumb checkout__breadcrumb d-flex">
                                     <li class="breadcrumb__item breadcrumb__item--completed d-flex align-items-center">
-                                        <a class="breadcrumb__link" href="/viewcart">Cart</a>
+                                        <a class="breadcrumb__link" href="/viewcart">Order</a>
                                         <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512">
                                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path>
                                         </svg>
                                     </li>
                                     <li class="breadcrumb__item breadcrumb__item--current d-flex align-items-center">
-                                        <a class="breadcrumb__link" href="/checkout">Information</a>
-                                        <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path>
-                                        </svg>
-                                    </li>
-                                    <li class="breadcrumb__item breadcrumb__item--blank d-flex align-items-center">
-                                        <a class="breadcrumb__link" href="/shipping">Shipping</a>
-                                        <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path>
-                                        </svg>
-                                    </li>
-                                    <li class="breadcrumb__item breadcrumb__item--blank">
-                                        <a class="breadcrumb__link" href="/bill">Bill</a>
+                                        <a class="breadcrumb__link" href="/checkout">Order Detail</a>
                                     </li>
                                 </ol>
                             </nav>
@@ -44,31 +32,16 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <div class="alert alert-success text-center mt-5" role="alert">
-                        <h4 class="alert-heading">Đặt hàng thành công!</h4>
-                        <p>Cảm ơn bạn đã đặt hàng. Đơn hàng của bạn đã được ghi nhận và đang được xử lý.❤️❤️❤️</p>
+                        <h4 class="alert-heading">Order Detail!</h4>
                     </div>
                 </div>
             </div>
 
             <div class="checkout__page--inner d-flex">
                 <div class="main checkout__mian">
-                    <h2 class="cart__title mb-40">Shipping address</h2>
                     <main class="main__content_wrapper">
                         <form action="#">
                             <div class="checkout__content--step section__shipping--address pt-0">
-                                <div class="section__header checkout__header--style3 position__relative mb-25">
-                                    <span class="checkout__order--number">Order #0021</span>
-                                    <h2 class="section__header--title h3">Thank you submission</h2>
-                                    <div class="checkout__submission--icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25.995" height="25.979" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="order__confirmed--area border-radius-5 mb-15">
-                                    <h3 class="order__confirmed--title h4">Your order is confirmed</h3>
-                                    <p class="order__confirmed--desc">You,ll receive a confirmation email with your order number shortly</p>
-                                </div>
                                 <div class="customer__information--area border-radius-5">
                                     <h3 class="customer__information--title h4">Customer Information</h3>
                                     <div class="customer__information--inner d-flex">
@@ -112,11 +85,6 @@
                                 <div class="checkout__content--step__footer d-flex align-items-center mt-5">
                                     <a class="continue__shipping--btn primary__btn border-radius-5" href="{{url('myorder')}}">My order</a>
                                 </div>
-
-                                <div class="checkout__content--step__footer d-flex align-items-center mt-5">
-                                    <a class="previous__link--content" href="/products">Continute Shopping</a>
-                                </div>
-
                             </div>
                         </form>
                     </main>
