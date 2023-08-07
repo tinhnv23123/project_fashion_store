@@ -47,4 +47,16 @@ class OrderController extends Controller
             return redirect("/");
         }
     }
+    public function delivered(Request $request, Order $order, $id){
+        $role_id = Auth::user()->role_id;
+        if ($role_id == 0 || $role_id == 2) {
+            $order = Order::findOrFail($id);
+            // dd($orders);
+            $order->delivery_status = "Processed";
+            $order->save();
+            return redirect()->back();
+        } else {
+            return redirect("/");
+        }
+    }
 }

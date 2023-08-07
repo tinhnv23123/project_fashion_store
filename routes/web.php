@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,7 @@ Route::middleware([
     Route::resource('/user', UserController::class);
     Route::get('/orders',[OrderController:: class, 'index'] );
     Route::get('/orders/{orderId}', [OrderController::class, 'orderDetail'])->name('admin.orderdetail');
+    Route::get('/delivered/{orderId}', [OrderController::class, 'delivered']);
 
     //Client
     // cart

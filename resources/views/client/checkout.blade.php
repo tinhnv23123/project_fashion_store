@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 mb-12">
                                             <div class="checkout__input--list">
-                                            <label>
+                                                <label>
                                                     <input class="checkout__input--field border-radius-5" placeholder="Name" type="text" name="name" value="{{ $user->name ?? old('name') }}">
                                                 </label>
                                             </div>
@@ -89,7 +89,55 @@
                                                     <input class="checkout__input--field border-radius-5" placeholder="Phone number" type="text" name="phone" value="{{ $user->phone ?? old('phone') }}">
                                                 </label>
                                             </div>
+                                            <div class="checkout__content--input__box--wrapper" id="form2" style="display: none;">
+                                                <div class="row">
+                                                    <div class="col-12 mb-12">
+                                                        <div class="checkout__input--list position__relative">
+                                                            <label>
+                                                                <input class="checkout__input--field border-radius-5" placeholder="Card number" type="text">
+                                                            </label>
+                                                            <button class="checkout__input--field__button" type="button">
+
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="15.51" height="15.443" viewBox="0 0 512 512">
+                                                                    <path d="M336 208v-95a80 80 0 00-160 0v95" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                                                    <rect x="96" y="208" width="320" height="272" rx="48" ry="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 mb-12">
+                                                        <div class="checkout__input--list">
+                                                            <label>
+                                                                <input class="checkout__input--field border-radius-5" placeholder="Name on card" type="text">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-12">
+                                                        <div class="checkout__input--list">
+                                                            <label>
+                                                                <input class="checkout__input--field border-radius-5" placeholder="piration date (MM / YY)" type="text">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-12">
+                                                        <div class="checkout__input--list position__relative">
+                                                            <label>
+                                                                <input class="checkout__input--field border-radius-5" placeholder="Security code" type="text">
+                                                            </label>
+                                                            <button class="checkout__input--field__button" type="button">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18.51" height="18.443" viewBox="0 0 512 512">
+                                                                    <title>Help Circle</title>
+                                                                    <path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                                                    <path d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28" />
+                                                                    <circle cx="250" cy="348" r="20" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
                                         <div class="checkout__checkbox">
                                             <input class="checkout__checkbox--input" id="check2" type="checkbox">
                                             <span class="checkout__checkbox--checkmark"></span>

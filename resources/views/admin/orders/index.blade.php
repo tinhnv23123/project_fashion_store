@@ -14,19 +14,24 @@
                 <th scope="col">Total</th>
                 <th scope="col">Pay Method</th>
                 <th scope="col">Status</th>
-                <th scope="col"></th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach($orders as $order)
             <tr>
                 <th scope="row">{{$order->id}}</th>
-                <td>{{$order->created_at->format('M d, Y - H:i:s')}}</td>
-                <td>{{$order->email}}</td>
-                <td>{{number_format($order->total, '0', ',', '.')}} VNĐ</td>
-                <td>{{$order->pay_method}}</td>
-                <td>{{$order->delivery_status}}</td>
-                <td class="row">
+                <td scope="row">{{$order->created_at->format('M d, Y - H:i:s')}}</td>
+                <td scope="row">{{$order->email}}</td>
+                <td scope="row">{{number_format($order->total, '0', ',', '.')}} VNĐ</td>
+                <td scope="row">{{$order->pay_method}}</td>
+                @if($order->delivery_status == 'Pending')
+                <td scope="row"><a href="{{url('delivered', $order->id)}}" class="btn btn-success">{{$order->delivery_status}}</a></td>
+
+                @else
+                <td scope="row" class="text-success">{{$order->delivery_status}}</td>
+                @endif
+                <td scope="row">
                     <a href="{{route('admin.orderdetail', [$order->id]) }}">Order Detail</a>
                 </td>
             </tr>

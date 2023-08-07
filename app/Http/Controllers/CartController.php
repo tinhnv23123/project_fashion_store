@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
@@ -170,28 +171,16 @@ class CartController extends Controller
 
     public function order(Request $request, User $user)
     {
-
         $user = Auth::user();
         $categories = Category::all();
         $userid = Auth::user()->id;
         $carts = Cart::where('user_id', '=', $userid)->get();
         $data = Cart::where('user_id', '=', $userid)->get();
         $shippingInfo = $request->session()->get('shippingInfo');
-        $selectedPaymentMethod = $request->input('checkmethod');
         if ($carts->isEmpty()) {
             // Redirect hoặc trả về view thông báo giỏ hàng rỗng
             return redirect('/viewcart')->with('message', 'Giỏ hàng bạn đang không có gì 😥😥😥. Vui lòng thêm các mặt hàng vào giỏ hàng của bạn');
         } else {
-            if (empty($selectedPaymentMethod) || $selectedPaymentMethod === 'form1') {
-                // Nếu không chọn hình thức thanh toán hoặc chọn "Payment on delivery",
-                // mặc định hình thức thanh toán là "Payment on delivery"
-                $selectedPaymentMethod = 'Payment on delivery';
-            } else if ($selectedPaymentMethod === 'form2') {
-                // Nếu chọn "Visa", thì thực hiện xử lý thanh toán bằng Visa
-                // ...
-            }
-            // dd($data);
-            // Lưu thông tin vào bảng "orders"
             $order = new Order();
             $order->name = $shippingInfo['name'] ?? '';
             $order->email = $shippingInfo['email'] ?? '';
@@ -218,9 +207,9 @@ class CartController extends Controller
             $order->price = implode(', ', $prices);
             $order->image = implode(', ', $images);
             $order->product_id = implode(', ', $productIds);
+            $order->pay_method = "Payment on delivery";
             $order->total = array_sum($totals);
-            $order->pay_method = $selectedPaymentMethod;
-            $order->delivery_status = 'Pending'; // Trạng thái giao hàng mặc định là "Pending"
+            $order->delivery_status = 'Pending';
             $order->save();
             $request->session()->forget('shippingInfo');
             Cart::where('user_id', $user->id)->delete();
